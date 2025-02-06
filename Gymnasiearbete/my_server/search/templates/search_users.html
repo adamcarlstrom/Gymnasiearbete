@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{%block title%}
+Sök användare
+{% endblock%}
+
+{% block header %}
+<div class="header-small">
+  <div class="header-content">
+    <div class="header-text">Sök användare</div>
+  </div>
+</div>
+{% endblock %}
+
+{% block content1 %}
+<div class="box-padding">
+  <div class="row">
+
+    <div class="col-sm-12 col-md-12 mb-5">
+      <h1>Profiler</h1>
+      <input type="text" class="contact" id="searchUsersBox" placeholder="Sök..." value="">
+      <div id="displayUsers"></div>
+    </div>
+
+
+  </div>
+</div>
+{% endblock %}

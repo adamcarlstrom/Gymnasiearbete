@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{%block head%}
+<!-- <script src="{{ url_for(request.blueprint+'.static', filename='js/main.js') }}"></script> -->
+<script src="{{url_for(request.blueprint+'.static', filename='Square.js')}}"></script>
+<script src="{{url_for(request.blueprint+'.static', filename='Board.js')}}"></script>
+<script src="{{url_for(request.blueprint+'.static', filename='Game.js')}}"></script>
+<script src="{{url_for(request.blueprint+'.static', filename='Snake.js')}}"></script>
+<script src="{{url_for(request.blueprint+'.static', filename='Food.js')}}"></script>
+<script src="{{url_for(request.blueprint+'.static', filename='game_route.js')}}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.5.4/socket.io.js"
+  integrity="sha512-YeeA/Qxn5hYdkukScTCNNOhTrv1C2RubAGButJ1rmgQwZf/HdRaCGl+JAVkqsqaNRaYNHdheiuKKuPf9mDcqKg=="
+  crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+{%endblock%}
+
+{%block title%}
+Game
+{% endblock%}
+
+{% block content3 %}
+<input type="hidden" id="opponent_id" value="{{opponent_id}}">
+<input type="hidden" id="opponent_name" value="{{opponent}}">
+
+<div class="game-image p-1"></div>
+
+<canvas id="gameSpace" width="2000" height="2000" style="margin-top: 7.2vh;"></canvas>
+
+<div class="stats-game row">
+  <div class="bg-theme h3 col-3 p-3">{{username}}</div>
+  <div class="bg-theme h2 col-2 p-3" id="lengthUser">0</div>
+  <div class="clock h2 col-2 p-3 bg-light" id="gameTime">0s</div>
+
+
+  <div class="bg-danger h2 col-2 p-3" id="lengthOponent">0</div>
+  <div class="bg-danger h3 col-3 p-3">{{opponent}}</div>
+</div>
+
+<!-- Ska visas innan spel börjar -->
+<div class="modal fade" id="game_start" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title text-center w-100" id="exampleModalLabel">Du möter {{opponent}}</h3>
+      </div>
+      <div class="modal-body">
+        <h3> Redo: <i class="bi bi-x-square-fill text-danger" id="player_1_ready"></i></h3>
+        <h3> Motståndare redo: <i class="bi bi-x-square-fill text-danger" id="player_2_ready"></i></h3>
+        <h3 id="timer">Tid kvar att svara: . . .</span></h3>
+      </div>
+      <div class="modal-footer">
+        <button class="button w-100" id="ready_up">Spela</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ska visas efter ett spel är avslutat -->
+
+<div class="modal fade" id="game_results" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title text-center w-100" id="results"></h3>
+      </div>
+      <div class="modal-body row">
+        <!-- <a href="{{url_for('game_bp.game_hub')}}" class="button">Spelsida</a> -->
+        <button class="button col-6" id="rematch">Returmatch</button>
+        <button class="button col-6" id="gameHubButton">Spelsida</button>
+      </div>
+      <div class="modal-footer">
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

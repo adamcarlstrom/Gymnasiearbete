@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+
+{%block title%}
+Profilinställningar
+{% endblock%}
+
+{% block header %}
+<div class="header-small">
+  <div class="header-content">
+    <div class="header-text">Profilinställningar</div>
+  </div>
+</div>
+{% endblock %}
+
+{% block content1 %}
+<div class="box-padding">
+  <div class="row">
+    <div class="col-sm-12 col-md-6 my-5">
+      <img src="../static/uploads/{{user_info[4]}}" alt="Profile picture" class="center-horizontal profile-image"
+        style="width: 25rem; height: 25rem;">
+
+      <div class="text-center">
+        <form enctype="multipart/form-data" action="{{url_for('profiles_bp.upload_file')}}" method="post">
+          <label class="button button-small text-center">
+            Ny bild
+            <input type="file" style="display:none" name="file">
+          </label>
+          <!-- <input type="file" name="file"> -->
+          <input type="submit" value="Ladda upp" class="button button-small">
+        </form>
+      </div>
+    </div>
+
+    <div class="col-sm-12 col-md-6">
+      <form action="{{url_for('profiles_bp.update_user_info')}}" , method="post" class="my-5">
+        <h6>Användarnamn</h3>
+          <input name="username" type="text" class="contact mt-3" value="{{user_info[1]}}">
+          <h6>Personlig beskrivning</h3>
+            <!-- <input name="description" type="text" class="contact mt-3" value="{{user_info[3]}}"> -->
+            <textarea name="description" type="text" class="contact mt-3" rows="5" cols="50"
+              style="height:auto;">{{user_info[3]}}</textarea>
+
+            <!--Denna del måste se annorlunda ut eftersom det ska vara typ längre text här ksk-->
+            <input type="submit" value="Spara ändringar" class="button">
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{%block content2%}
+<div class="box-padding">
+  <h1>
+    Ändra lösenord
+  </h1>
+  <div class="row">
+    <div class="col-sm-12 col-md-6 my-5">
+      <form action="{{url_for('profiles_bp.change_password')}}" method="post">
+        <input name="password" type="password" class="contact mt-3" id="password" placeholder="Ditt lösenord...">
+        <input name="password_repeat" type="password" class="contact mt-3" id="password_repeat"
+          placeholder="Upprepa lösenord...">
+        <input type="submit" value="Ändra lösenord" class="button">
+      </form>
+    </div>
+    <div class="col-sm-12 col-md-6" style="transform: translateY(-10%);">
+      <img src="../static/images/creative-team.png" alt="Logging in illustration" class="image center-horizontal">
+    </div>
+  </div>
+</div>
+{%endblock%}¨
+
+{% block content4 %}
+<div class="box-padding">
+  <h1>
+    Radera konto
+  </h1>
+  <div class="row">
+    <div class="col-sm-12 col-md-6 my-5">
+      <form action="{{url_for('profiles_bp.delete_account')}}" method="post">
+        <input name="password" type="password" class="contact mt-3" id="password" placeholder="Ditt lösenord...">
+        <input name="password_repeat" type="password" class="contact mt-3" id="password_repeat"
+          placeholder="Upprepa lösenord...">
+        <input type="submit" value="Radera" class="button">
+      </form>
+    </div>
+    <div class="col-sm-12 col-md-6" style="transform: translateY(-10%);">
+      <img src="../static/images/creative-team.png" alt="Logging in illustration" class="image center-horizontal">
+    </div>
+  </div>
+</div>
+{%endblock%}
+
+<!-- bör skapa en radera konto grej -->

@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+
+{%block head%}
+<!-- <script src="{{ url_for(request.blueprint+'.static', filename='js/main.js') }}"></script> -->
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.5.4/socket.io.js"
+  integrity="sha512-YeeA/Qxn5hYdkukScTCNNOhTrv1C2RubAGButJ1rmgQwZf/HdRaCGl+JAVkqsqaNRaYNHdheiuKKuPf9mDcqKg=="
+  crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
+<script src="https://cdn.socket.io/4.6.0/socket.io.min.js"
+  integrity="sha384-c79GN5VsunZvi+Q/WObgk2in0CbZsHnjEqvFxC5DxHn9lTfNce2WW6h2pH6u/kF+" crossorigin="anonymous"></script>
+
+{%endblock%}
+
+{%block title%}
+Meddelanden
+{% endblock%}
+
+{% block header %}
+<div class="header-small">
+  <div class="header-content">
+    <div class="header-text" id="title_header">Meddelanden</div>
+  </div>
+</div>
+{% endblock %}
+
+{% block content1 %}
+<div class="box-padding">
+  <div class="row">
+
+    <div class="col-sm-12 col-md-12 mb-5">
+      <h1>Kontakter</h1>
+      <input name="searchContactsBox" type="text" class="contact" id="searchContactsBox" placeholder="Sök..." value="">
+
+      <div class="contactsBox">
+
+      </div>
+      <input type="hidden" value="{{contacts}}" id="contacts">
+    </div>
+
+  </div>
+</div>
+{% endblock %}
+
+{% block chat %}
+
+<div class="chat-area">
+  <div class="d-flex flex-row" style="height:60vh;">
+    <!-- <div class="chat-contacts bg-light">
+      <div class="p-2 d-flex flex-row">
+        <img src="../static/images/landscape.jpg" class="profile-image-small">
+        <div style="transform: translateY(10%);">Namn kom igen</div>
+      </div>
+      <div class="p-2 d-flex flex-row">
+        <img src="../static/images/landscape.jpg" class="profile-image-small">
+        <div style="transform: translateY(10%);">Namn kom igen</div>
+      </div>
+      <div class="p-2 d-flex flex-row">
+        <img src="../static/images/landscape.jpg" class="profile-image-small">
+        <div style="transform: translateY(10%);">What</div>
+      </div>
+    </div> -->
+
+    <div id="messagesHolder">
+      <div id="messageLog">
+      </div>
+    </div>
+  </div>
+
+  <div class="chat-controls bg-light">
+    <button class="button button-small" id="goBackButton" style="margin: 0;margin-top: 1vh;"><i
+        class="bi bi-arrow-return-left"></i></button>
+    <!-- jag vill typ sätta en form runt meddelande input samt knapp för att skicka eftersom då kan man trycka tab enter när man vill skicka, mycket trevligt -->
+    <input type="text" class="contact" id="messageContent" placeholder="Skriv..." style="width:50%; margin: 0;">
+    <button class="button button-small" id="messageSend" style="margin: 0;margin-top: 1vh;"><i
+        class="bi bi-chat"></i></button>
+    <button class="button button-small" id="challenge" style="margin: 0;"><i class="bi bi-play-circle"></i></button>
+  </div>
+</div>
+
+<input type="hidden" value="" id="username">
+<input type="hidden" value="" id="user_id">
+
+{% endblock %}

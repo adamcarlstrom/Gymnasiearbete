@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    404 – Not found
+{% endblock %}
+
+{%block header%}
+<div class="header-small">
+    <div class="header-content">
+      <div class="header-text">Error 404 - Sidan hittas inte</div>
+    </div>
+  </div>
+{%endblock%}
+
+{% block content1 %}
+<!-- Du får äran att styla denna hemsida -->
+
+<div class="box-padding">
+
+    <div class="row">
+        <div class="col-12">
+            <p>Sidan hittas inte</p>
+            <a href="{{url_for('auth_bp.index')}}">Tillbaka till Hem</a>
+        </div>
+    </div>
+</div>
+{%endblock%}

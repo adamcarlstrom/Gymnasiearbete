@@ -1,0 +1,133 @@
+{% extends 'base.html' %}
+
+{%block head%}
+<script src="{{url_for(request.blueprint+'.static', filename='profiles.js')}}"></script>
+{%endblock%}
+
+{%block title%}
+View profile
+{% endblock%}
+
+{% block header %}
+<div class="header-small">
+  <div class="header-content">
+    <div class="header-text" id="title_header">{{viewed_user[1]}}s profil</div>
+  </div>
+</div>
+{% endblock %}
+
+{% block content1 %}
+<div class="box-padding">
+
+  <div class="row">
+    <div class="col-12">
+      {% if viewed_user[4] != None%}
+      <img src="../static/uploads/{{viewed_user[4]}}" alt="Profile picture" class="center-horizontal profile-image"
+        style="width: 25rem; height: 25rem;">
+      {% else %}
+      <img src="../static/images/default_profile.png" alt="Profile picture" class="center-horizontal profile-image"
+        style="width: 25rem; height: 25rem;">
+      {% endif %}
+    </div>
+    <div class="col-12 my-3">
+      <h1 class="text-center">
+        {{viewed_user[1]}}
+      </h1>
+    </div>
+    <div class="col-12 my-3">
+      <!-- Ok men denna knapp gör inget just nu :(, gör så att den skickar användare till meddelande hemsidan-->
+      <div class="text-center">
+        <input type="hidden" id="profile_id" value="{{viewed_user[0]}}">
+        <input type="hidden" id="profile_username" value='{{viewed_user[1]}}'>
+        <button class="button button-small" id="get_to_messages">Skicka meddelande</button>
+        <button class="button button-small" id="challengeBtn">Skicka utmaning</button>
+      </div>
+    </div>
+    <div class="col-12 contact text-center text-align-left mt-3" style="padding: 3rem;">
+      <p class="center-vertical"> {{viewed_user[3]}}</p>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block content2 %}
+
+<div class="box-padding">
+
+  <h1 class="text-center">Snake</h1>
+
+  <input id="win_rate_stats" class="d-none position-absolute" value="{{win_rate}}">
+
+  <div class="h3 text-center w-100"><strong>Vinstfrekvens: {{win_rate}}%</strong></div>
+  <div id="win_rate"></div>
+
+  <table class="table table-dark">
+    <tr>
+      <th>
+        Motspelare
+      </th>
+      <th>
+        Resultat
+      </th>
+      <th>
+        Datum
+      </th>
+    </tr>
+    {%for game in games%}
+    <tr>
+      <td>
+        {%for name in username%}
+        {%if name[0] == game[1]%}
+        {{name[1]}}
+        {%elif name[0] == game[2]%}
+        {{name[1]}}
+        {%endif%}
+        {%endfor%}
+
+        {% if game[2] == 15 %} <!--heh lol-->
+        *Raderat konto*
+        {% endif %}
+      </td>
+      <td>
+        {%if game[3] == viewed_user[0]%}
+        <!-- dem vann -->
+        <i class="bi bi-check-square-fill text-success"></i>
+        {%else%}
+        <i class="bi bi-x-square-fill text-danger"></i>
+        {%endif%}
+      </td>
+      <td>
+        {{game[4]}}
+      </td>
+    </tr>
+    {%endfor%}
+  </table>
+</div>
+
+{% endblock %}
+
+{% block chat %}
+
+<div class="chat-area">
+  <div class="d-flex flex-row" style="height:60vh;">
+    <div id="messagesHolder">
+      <div id="messageLog">
+      </div>
+    </div>
+  </div>
+
+  <div class="chat-controls bg-light">
+    <button class="button button-small" id="goBackButton" style="margin: 0;margin-top: 1vh;"><i
+        class="bi bi-arrow-return-left"></i> </button>
+    <!-- jag vill typ sätta en form runt meddelande input samt knapp för att skicka eftersom då kan man trycka tab enter när man vill skicka, mycket trevligt -->
+    <input type="text" class="contact" id="messageContent" placeholder="Skriv..." style="width:50%; margin: 0;">
+    <button class="button button-small" id="messageSend" style="margin: 0;margin-top: 1vh;"><i
+        class="bi bi-chat"></i></button>
+    <button class="button button-small" id="challenge" style="margin: 0;"><i class="bi bi-play-circle"></i> </button>
+  </div>
+</div>
+
+<input type="hidden" value="" id="username">
+<input type="hidden" value="" id="user_id">
+
+{% endblock %}

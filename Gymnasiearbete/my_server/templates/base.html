@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Slab&display=swap" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300;400;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300;400;700&family=Space+Grotesk:wght@300;400;600&display=swap"
+        rel="stylesheet">
+
+    <title>
+        GYAR -
+        {% block title %}
+        {% endblock %}
+    </title>
+    <!-- Bootstrap imports -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+        integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+        integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
+        crossorigin="anonymous"></script>
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Own imports -->
+    <script src="{{url_for('static',filename='logic.js')}}"></script>
+    <script src="{{url_for('static',filename='socket.js')}}"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+
+    <!-- hämta bild på något sätt -->
+    <!-- {{url_for('static', filename='/images/stockDog.jpg')}} -->
+    <link rel="icon" type="image/x-icon" href="{{url_for('static', filename='/images/snake_logo.png')}}">
+    <!-- <link rel="icon" type="image/x-icon" href="../static/images/snake_logo.png"> -->
+
+    <!-- Socket imports -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.5.4/socket.io.js"
+        integrity="sha512-YeeA/Qxn5hYdkukScTCNNOhTrv1C2RubAGButJ1rmgQwZf/HdRaCGl+JAVkqsqaNRaYNHdheiuKKuPf9mDcqKg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="{{url_for('static', filename='messages.js')}}"></script>
+    {%block head%}
+    {%endblock%}
+</head>
+
+<body>
+    <div class="bg-light position-fixed w-100 nav-phone" id="nav-phone">
+        <div style="float: right; margin: 1vh; margin-top: 0;">
+            <button class="button button-small" id="navButton">
+                <i class="bi bi-list"></i>
+            </button>
+        </div>
+    </div>
+
+
+    <input type="hidden" value="{{active_page}}" id="active_page">
+    <div class="all">
+        <nav class="glide-left" id="sidebar-navigation">
+            <div class="bg-theme py-3">
+                <div class="bg-theme logo text-light text-center"> <strong>GY</strong>AR</div>
+            </div>
+            <ul class="d-lg-block links">
+                <li><a class="nav-link" href="{{url_for('auth_bp.index')}}">
+                        <h5 class="navigation-link">
+                            <i class="bi bi-house icon"></i>
+                            Hem
+                        </h5>
+                    </a>
+                </li>
+                {% if session['logged_in'] == False %}
+                <li><a class="nav-link" href="{{url_for('auth_bp.log_in')}}">
+                        <h5 class="navigation-link">
+                            <i class="bi bi-person-square icon"></i>
+                            Logga in
+                        </h5>
+                    </a>
+                </li>
+                <li><a class="nav-link" href="{{url_for('auth_bp.new_user')}}">
+                        <h5 class="navigation-link">
+                            <i class="bi bi-person-plus-fill icon"></i>
+                            Skapa konto
+                        </h5>
+                    </a>
+                </li>
+                {% else %}
+                <li><a class="nav-link" href="{{url_for('game_bp.game_hub')}}">
+                        <h5 class="navigation-link">
+                            <i class="bi bi-controller"></i>
+                            Spel
+                        </h5>
+                    </a>
+                </li>
+                <li><a class="nav-link" href="{{url_for('messages_bp.messages')}}">
+                        <h5 class="navigation-link">
+                            {%if session['message_notification']%}
+                            <!-- <p>{{session['message_notification']}}</p> -->
+                            <i class="bi bi-chat-text icon icons-unread message_icon"></i>
+                            {%else%}
+                            <i class="bi bi-chat-text icon message_icon"></i>
+                            {%endif%}
+                            Meddelanden
+                        </h5>
+                    </a>
+                </li>
+                <li><a class="nav-link" href="{{url_for('search_bp.search_users')}}">
+                        <h5 class="navigation-link">
+                            <i class="bi bi-search icon"></i>
+                            Sök
+                        </h5>
+                    </a>
+                </li>
+                <li><a class="nav-link" href="{{url_for('profiles_bp.own_profile')}}">
+                        <h5 class="navigation-link">
+                            <i class="bi bi-gear icon"></i>
+                            Profil
+                        </h5>
+                    </a>
+                </li>
+                <li><a class="nav-link" href="{{url_for('auth_bp.logout')}}">
+                        <h5 class="navigation-link">
+                            <i class="bi bi-person-x-fill icon"></i>
+                            Logga ut
+                        </h5>
+                    </a>
+                </li>
+                {% endif %}
+            </ul>
+            {% with messages = get_flashed_messages(with_categories=True) %}
+            {% if messages %}
+            {% for category, message in messages %}
+            <div class="alert alert-{{ category }} alert-dismissible alert-custom">
+                {{ message }}
+            </div>
+            {% endfor %}
+            {% endif %}
+            {% endwith %}
+
+            <!-- Här visas alerts/notiser som invites till spel -->
+            <div class="alert alert-info alert-dismissible alert-custom d-none" id="alerts">
+                <div id="alerts_html"></div>
+                <h6 id="alerts_error"></h6>
+            </div>
+
+            <!-- Här visas användarens profil (mini) -->
+            {% if session['logged_in'] == True %}
+            <div class="status-position">
+                <div class="text-light">
+                    <img src="../static/uploads/{{session['user']['profile_picture']}}" alt="Profile"
+                        class="display-horizontal profile-image">
+                    <div class="display-horizontal">{{session['user']['username']}}</div>
+                </div>
+            </div>
+            {%endif%}
+        </nav>
+
+
+        <div id="header">
+            {%block header %}
+            {% endblock %}
+        </div>
+
+        <div class="bg-light left" id="content1">
+            {% block content1 %}
+            {% endblock %}
+        </div>
+        <div class="left" id="content2" style="background-color: #E5E4E2;">
+            {% block content2 %}
+            {% endblock %}
+        </div>
+
+        <div class="left" id="content3">
+            {% block content3 %}
+            {% endblock %}
+        </div>
+        <div class="left bg-secondary" id="content4">
+            {% block content4 %}
+            {% endblock %}
+        </div>
+        <div class="left" id="chat" style="background-color: #E5E4E2;">
+            {% block chat %}
+            {% endblock %}
+        </div>
+
+        <footer class="text-center text-lg-start text-white left" style="background-color: #1c2331" id="footer">
+            <div class="d-flex justify-content-between p-4 bg-theme"></div>
+
+            <div>
+                <div class="container text-center text-md-start mt-5">
+                    <!-- Grid row -->
+                    <div class="row mt-3">
+                        <!-- Grid column -->
+                        <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+                            <!-- Content -->
+                            <h6 class="text-uppercase fw-bold">Gymnasiearbete</h6>
+                            <hr class="mb-4 mt-0 d-inline-block mx-auto"
+                                style="width: 60px; background-color: #7c4dff; height: 2px" />
+                            <p>
+                                Tack för att du har besökt vår hemsida. Hoppas du uppskattade uplevelsen!
+                            </p>
+                        </div>
+                        <!-- Grid column -->
+
+                        <!-- Grid column -->
+                        <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+                            <!-- Links -->
+                            <h6 class="text-uppercase fw-bold">Products</h6>
+                            <hr class="mb-4 mt-0 d-inline-block mx-auto"
+                                style="width: 60px; background-color: #7c4dff; height: 2px" />
+                            <p>
+                                <a href="#!" class="text-white">MDBootstrap</a>
+                            </p>
+                            <p>
+                                <a href="#!" class="text-white">MDWordPress</a>
+                            </p>
+                            <p>
+                                <a href="#!" class="text-white">BrandFlow</a>
+                            </p>
+                            <p>
+                                <a href="#!" class="text-white">Bootstrap Angular</a>
+                            </p>
+                        </div>
+                        <!-- Grid column -->
+
+                        <!-- Grid column -->
+                        <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+                            <!-- Links -->
+                            <h6 class="text-uppercase fw-bold">Useful links</h6>
+                            <hr class="mb-4 mt-0 d-inline-block mx-auto"
+                                style="width: 60px; background-color: #7c4dff; height: 2px" />
+                            <p>
+                                <a href="#!" class="text-white">Ditt konto</a>
+                            </p>
+                            <p>
+                                <a href="#!" class="text-white">Become an Affiliate</a>
+                            </p>
+                            <p>
+                                <a href="#!" class="text-white">Shipping Rates</a>
+                            </p>
+                            <p>
+                                <a href="#!" class="text-white">Help</a>
+                            </p>
+                        </div>
+                        <!-- Grid column -->
+
+                        <!-- Grid column -->
+                        <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+                            <!-- Links -->
+                            <h6 class="text-uppercase fw-bold">Contact</h6>
+                            <hr class="mb-4 mt-0 d-inline-block mx-auto"
+                                style="width: 60px; background-color: #7c4dff; height: 2px" />
+                            <p><i class="fas fa-home mr-3"></i> New York, NY 10012, US</p>
+                            <p><i class="fas fa-envelope mr-3"></i> info@example.com</p>
+                            <p><i class="fas fa-phone mr-3"></i> + 01 234 567 88</p>
+                            <p><i class="fas fa-print mr-3"></i> + 01 234 567 89</p>
+                        </div>
+                        <!-- Grid column -->
+                    </div>
+                    <!-- Grid row -->
+                </div>
+            </div>
+            <!-- Section: Links  -->
+
+            <!-- Copyright -->
+            <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2)">
+                © 2023 Copyright:
+                <a class="text-white" href="#">Adam Carlström, Martin Nylund</a>
+            </div>
+            <!-- Copyright -->
+        </footer>
+    </div>
+
+</body>
+
+</html>

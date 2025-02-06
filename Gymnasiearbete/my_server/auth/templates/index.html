@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+
+{%block title%}
+Hem
+{% endblock%}
+
+{% block header %}
+<div class="header">
+    <div class="header-content">
+        <div class="header-text glide-right">Välkommen till hemsidan</div>
+        <div class="header-text-small glide-right" style="animation-delay: 0.3s; transform: translateX(100%);">Fina
+            bilder? Tyvärr är inte vårt spel på den nivån, än :)</div>
+        <a href="#content1">
+            <button id="scroll-down-button" class="button button1 button-small glide-right"
+                style="margin-right: auto; margin-top: 1rem;">
+                Scrolla ned
+            </button>
+        </a>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block content1 %}
+<div class="box-padding">
+    <h1>Vad det är för <div class="text-theme">gymnasieprojekt</div>
+    </h1>
+    <div class="row">
+        <div class="col-sm-12 col-md-6 my-5">
+            A very fine text indeed that is not going to be here when the projekt is finished. That is if i don't
+            forget
+            to remove this paragraph of text. <br> <br>
+            A very fine text indeed that is not going to be here when the projekt is finished. That is if i don't
+            forget
+            to remove this paragraph of text. Syns detta på engång.
+            A very fine text indeed that is not going to be here when the projekt is finished. That is if i don't
+            forget
+            to remove this paragraph of text. <br> <br>
+            A very fine text indeed that is not going to be here when the projekt is finished. That is if i don't
+            forget
+            to remove this paragraph of text. Syns detta på engång.
+            A very fine text indeed that is not going to be here when the projekt is finished. That is if i don't
+            forget
+            to remove this paragraph of text. <br> <br>
+            A very fine text indeed that is not going to be here when the projekt is finished. That is if i don't
+            forget
+            to remove this paragraph of text. Syns detta på engång.
+
+            heheheheh
+        </div>
+        <div class="col-sm-12 col-md-6" style="transform: translateY(-10%);">
+            <img src="../static/images/designer.png" alt="Snake bild" class="image center-horizontal">
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block content2 %}
+<div class="box-padding">
+    <h1>
+        <div class="text-theme">Skaparna</div>
+    </h1>
+    <div class="my-5 d-flex flex-row">
+        <div class="card mx-5 my-5" style="width: 18rem;">
+            <img class="card-img-top" src="../static/images/snake_logo.png" alt="Card image cap">
+            <div class="card-body">
+                <h5 class="card-title">Adam Carlström</h5>
+                <p class="card-text">Nacka gymnasium</p>
+                <p class="card-text">TDI20b</p>
+            </div>
+        </div>
+        <div class="card my-5" style="width: 18rem;">
+            <img class="card-img-top" src="../static/images/snake_logo.png" alt="Card image cap">
+            <div class="card-body">
+                <h5 class="card-title">Martin Nylund</h5>
+                <p class="card-text">Nacka gymnasium</p>
+                <p class="card-text">TDI20b</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

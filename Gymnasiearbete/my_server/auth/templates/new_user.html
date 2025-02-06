@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{%block title%}
+Skapa användare
+{% endblock%}
+
+{% block header %}
+<div class="header-small">
+  <div class="header-content">
+    <div class="header-text">Ny Användare</div>
+  </div>
+</div>
+{% endblock %}
+
+{% block content1 %}
+<div class="box-padding">
+  <h1>
+    Skapa nytt konto
+  </h1>
+
+  <div class="row">
+    <div class="col-sm-12 col-md-6 my-5">
+      <form action="{{url_for('auth_bp.new_user_post')}}" method="post">
+        <input name="username" type="text" class="contact mt-3" id="name" placeholder="Ditt namn...">
+        <input name="password" type="password" class="contact mt-3" id="password" placeholder="Ditt lösenord...">
+        <input name="password_repeat" type="password" class="contact mt-3" id="password_repeat"
+          placeholder="Upprepa lösenord...">
+        <input type="submit" value="Skapa konto" class="button">
+      </form>
+    </div>
+    <div class="col-sm-12 col-md-6" style="transform: translateY(-10%);">
+      <img src="../static/images/designer.png" alt="Logging in illustration" class="image center-horizontal">
+    </div>
+  </div>
+</div>
+
+{% endblock %}

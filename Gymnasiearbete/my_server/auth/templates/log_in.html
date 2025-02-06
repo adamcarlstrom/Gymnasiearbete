@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{%block title%}
+Log in
+{% endblock%}
+
+{% block header %}
+<div class="header-small">
+  <div class="header-content">
+    <div class="header-text">Logga in</div>
+  </div>
+</div>
+{% endblock %}
+
+{% block content1 %}
+<div class="box-padding">
+  <h1>
+    Uppgifter
+  </h1>
+  <div class="row">
+    <div class="col-sm-12 col-md-6 my-5">
+      <form action="{{url_for('auth_bp.log_in_post')}}" method="post">
+        <input name="username" type="text" class="contact" id="name" placeholder="Ditt namn...">
+        <input name="password" type="password" class="contact" id="password" placeholder="Ditt lösenord...">
+        <input type="submit" value="Logga in" class="button">
+      </form>
+    </div>
+    <div class="col-sm-12 col-md-6" style="transform: translateY(-10%);">
+      <img src="../static/images/creative-team.png" alt="Logging in illustration" class="image center-horizontal">
+    </div>
+  </div>
+</div>
+{% endblock %}
