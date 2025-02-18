@@ -1,4 +1,4 @@
-#Project Summary
+# Project Summary
 
 This project is a web-based multiplayer Snake game, built with a Python backend and an HTML/CSS/JavaScript frontend, powered by an SQLite database. The project allows users to create accounts, customize profiles, make friends, communicate with each other, and challenge friends to a competitive multiplayer game of Snake. The game follows classic Snake rules, with the goal being for the player with the longest-surviving snake to win.
 
