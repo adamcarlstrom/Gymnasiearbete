@@ -120,6 +120,8 @@ body {
   float: left;
   height: 100%;
   position: fixed;
+  top:0;
+  left:0;
   background-color: rgba(12, 12, 12, 0.9);
   z-index: 100;
 }
@@ -451,4 +453,9 @@ body {
   #nav-phone {
     display: none;
   } 
+}
+
+.content3 {
+  margin-left:21%;
+  padding-top:2vh;
 }

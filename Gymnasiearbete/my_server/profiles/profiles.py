@@ -69,7 +69,7 @@ def delete_account():
         # delete account allowed
         cur.execute('DELETE FROM messages WHERE id = ?',
                     (session['user']['id'], ))
-        cur.execute('DELETE FROM games_history WHERE receiver_id = ? OR sender_id = ?',
+        cur.execute('DELETE FROM games_history WHERE player2_id = ? OR player1_id = ?',
                     (session['user']['id'], session['user']['id']))
         cur.execute('DELETE FROM users WHERE id = ?', (session['user']['id'],))
         conn.commit()
@@ -167,7 +167,7 @@ def view_profile(id=None):
     cur.execute('SELECT * FROM users WHERE id = ?', (id, ))
     viewed_user = cur.fetchone()
     cur.execute(
-        'SELECT * FROM games_history WHERE sender_id = ? OR receiver_id = ? ORDER BY date DESC', (id, id))
+        'SELECT * FROM games_history WHERE player1_id = ? OR player2_id = ? ORDER BY date DESC', (id, id))
     games = cur.fetchall()
     usernames = []
     for game in games:

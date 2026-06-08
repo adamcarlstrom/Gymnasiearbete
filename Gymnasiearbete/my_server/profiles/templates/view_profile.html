@@ -83,21 +83,22 @@ View profile
         {{name[1]}}
         {%endif%}
         {%endfor%}
-
-        {% if game[2] == 15 %} <!--heh lol-->
-        *Raderat konto*
-        {% endif %}
       </td>
       <td>
         {%if game[3] == viewed_user[0]%}
         <!-- dem vann -->
         <i class="bi bi-check-square-fill text-success"></i>
-        {%else%}
+        {%elif game[3] == game[2]%}
         <i class="bi bi-x-square-fill text-danger"></i>
+        {%else%}
+        <i class="bi bi-dash-square-fill text-secondary"></i>
+        {%endif%}
+        {%if game[6] and game[7]%}
+        <i class="bi bi-shield-fill-check text-info"></i>
         {%endif%}
       </td>
       <td>
-        {{game[4]}}
+        {{game[4].split('.')[0]}}
       </td>
     </tr>
     {%endfor%}

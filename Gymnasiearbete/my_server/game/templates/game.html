@@ -4,7 +4,7 @@
 <!-- <script src="{{ url_for(request.blueprint+'.static', filename='js/main.js') }}"></script> -->
 <script src="{{url_for(request.blueprint+'.static', filename='Square.js')}}"></script>
 <script src="{{url_for(request.blueprint+'.static', filename='Board.js')}}"></script>
-<script src="{{url_for(request.blueprint+'.static', filename='Game.js')}}"></script>
+<script src="{{url_for(request.blueprint+'.static', filename='game.js')}}"></script>
 <script src="{{url_for(request.blueprint+'.static', filename='Snake.js')}}"></script>
 <script src="{{url_for(request.blueprint+'.static', filename='Food.js')}}"></script>
 <script src="{{url_for(request.blueprint+'.static', filename='game_route.js')}}"></script>
@@ -18,22 +18,24 @@ Game
 {% endblock%}
 
 {% block content3 %}
+<input type="hidden" id="my_id" value="{{session['user']['id']}}">
 <input type="hidden" id="opponent_id" value="{{opponent_id}}">
 <input type="hidden" id="opponent_name" value="{{opponent}}">
 
 <div class="game-image p-1"></div>
 
-<canvas id="gameSpace" width="2000" height="2000" style="margin-top: 7.2vh;"></canvas>
-
 <div class="stats-game row">
-  <div class="bg-theme h3 col-3 p-3">{{username}}</div>
-  <div class="bg-theme h2 col-2 p-3" id="lengthUser">0</div>
+  <div class=" h3 col-3 p-3 text-dark" id="ui_my_name">{{username}}</div>
+  <div class=" h2 col-2 p-3" id="lengthUser">0</div>
   <div class="clock h2 col-2 p-3 bg-light" id="gameTime">0s</div>
 
 
-  <div class="bg-danger h2 col-2 p-3" id="lengthOponent">0</div>
-  <div class="bg-danger h3 col-3 p-3">{{opponent}}</div>
+  <div class=" h2 col-2 p-3" id="lengthOponent">0</div>
+  <div class=" h3 col-3 p-3 text-dark" id="ui_opponent_name">{{opponent}}</div>
 </div>
+
+<!-- width="75%" height="85%" style="margin-top: 10vh; margin-bottom: 40vh;"-->
+<canvas id="gameSpace" style="display: block; margin: 7.2vh auto 5vh auto;"></canvas>
 
 <!-- Ska visas innan spel börjar -->
 <div class="modal fade" id="game_start" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

@@ -1,3 +1,6 @@
+// File that is no longer used anymore, but I want to keep it for reference. The game logic is now handled in the backend for better synchronization between players.
+
+
 class Square {
 
 

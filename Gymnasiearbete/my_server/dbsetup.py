@@ -40,7 +40,11 @@ CREATE TABLE IF NOT EXISTS games_history (
     id INTEGER PRIMARY KEY,
     player1_id INTEGER REFERENCES users(id),
     player2_id INTEGER REFERENCES users(id),
-    winner_id REFERENCES users(id)
+    winner_id REFERENCES users(id),
+    date TEXT,
+    duraton INTEGER,
+    score_player1 INTEGER,
+    score_player2 INTEGER
 )''')
 
 cur.execute('''
