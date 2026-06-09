@@ -1,86 +1,104 @@
 # Multi-Snake Platform – Gymnasiearbete
 
-Ett modernt, nätverksbaserat spel- och community-plattform byggt som ett examensarbete på Nacka Gymnasium (TDI20b). Systemet flyttar all speltillståndsberäkning till en centraliserad, auktoritär backend för att uppnå synkroniserat realtids-multiplayer och garantera en fuskfri spelupplevelse.
-
-## 🚀 Projektöversikt
-
-Plattformen erbjuder en fullständig social spelmiljö inspirerad av moderna communities som Chess.com. Användare kan skapa konton, anpassa sina profiler med unika uppladdade bilder, söka efter medspelare och kommunicera via en realtidschatt. 
-
-Kärnan i projektet är en konkurrenskraftig multiplayer-variant av det klassiska spelet **Snake**, där två spelare möts på samma bräde under devisen: *den som överlever längst vinner*.
+Välkommen till en modern, nätverksbaserad spelplattform inspirerad av ledande community-sajter. Detta projekt är ett gymnasiearbete utvecklat på Nacka Gymnasium (TDI20b). Det huvudsakliga målet med projektet har varit att bygga en robust och server-auktoritär plattform för realtidsinteraktion, där all tung spel- och synkroniseringslogik flyttats till en säker backend för att garantera en rättvis och fuskfri upplevelse.
 
 ---
 
-## 🛠 Teknisk Arkitektur & Dataflöde
+## 🚀 Huvudfunktioner
 
-Plattformen är uppbyggd kring en **hybrid nätverksarkitektur** uppdelad i tre lager: Frontend, Backend (Server) och Databas. Den kombinerar traditionella HTTP-anrop med full-duplex WebSocket-strömmar för att optimera resursallokering och latens.
+På plattformen kan användare interagera, tävla och hantera sin data genom ett flertal integrerade system:
 
-   [ Frontend UI: HTML5 / JS Canvas ]
-        /                       \
-AJAX (HTTP POST)           WebSockets (Socket.IO)
-[Diskret data/Staging]     [Realtid: Inputs/Frames]
-/
-
-v                             v
-[ Flask Server Router ] <---> [ Authoritative Physics Engine ]
-|
-(Trådisolerad Commit)
-v
-[ SQLite Database File ]
-
-
-### 1. Klienten (Frontend)
-Utvecklad med **HTML5, CSS3 (Bootstrap)** och **JavaScript**. Spelytan renderas dynamiskt via **HTML5 Canvas**. För att garantera synkronisering fungerar frontenden som en *"dum renderingmotor"*. Den kör inga egna timers eller kollisionsberäkningar; den rensar endast skärmen och ritar upp koordinater som distribueras av backend-servern 10 gånger i sekunden, samt fångar upp användarens keystrokes (`W, A, S, D`) för direkt vidarebefordran till servern.
-
-### 2. Servern (Backend)
-Drivs av **Python** och webbramverket **Flask**. Applikationen är strukturerad med ett **Blueprint-system** för ren och modulär fil- och komponenthantering. Realtidskommunikationen hanteras via **Flask-SocketIO** (WebSockets). 
-* **Staging-fas:** Matchning och pre-game hanteras via asynkrona **AJAX-anrop (HTTP POST)** och Socket-rum för att synkronisera "Ready-Up"-statusen med en serverstyrd nedräkningstimer.
-* **Auktoritär Spelmotor:** När en match startas, initierar servern en isolerad bakgrundstråd (`start_background_task`) som utgör spelets källsanning. Servern beräknar ormarnas positionsförändringar, validerar riktningsbyten (förhindrar 180-graders självkollisioner mellan server-ticks), hanterar slumpmässig generering av frukter (4 aktiva simultant) samt utvärderar vägg-, själv- och head-on-kollisioner.
-
-### 3. Databasen (Persistens)
-En lokal **SQLite**-databas lagrar alla användarprofiler och matchresultat. Användarsessioner hanteras via `flask-session`, och känsliga användardata skyddas genom enkelriktad lösenordskryptering via `flask-bcrypt`. När en match avslutas i backend-tråden exekveras ett säkert, trådisolerat `INSERT`-kommando med ett strukturerat `try/except/finally`-mönster för att logga matchstatistiken utan att låsa databasfilen för övriga tjänster.
+* **Multiplayer-Snake:** Utmana en motståndare i realtid. Spelet körs helt på en centraliserad server, och matchen följer en enkel men tävlingsinriktad regel: den som överlever längst vinner.
+* **Realtidschatt:** Kommunicera med andra spelare via ett blixtsnabbt WebSocket-system. Spelnavet håller dig ständigt uppdaterad med notifieringar direkt på meddelandeikonen när du får nya utmaningar eller chattmeddelanden.
+* **Användarsök & Profiler:** Sök efter andra registrerade spelare i databasen, granska deras unika profiler, och ta del av deras matchhistorik och vinststatistik som visualiseras med responsiva diagram.
+* **Kontroll över din data:** Hantera din egen profil fullt ut. Du kan anpassa din personliga information, byta profilbild, uppdatera ditt lösenord eller permanent radera ditt konto.
 
 ---
 
-## 📊 Databasstruktur (`games_history`)
+## 🛠 Teknisk Arkitektur & Nätverk
 
-Tabellen `games_history` har uppgraderats för att spara detaljerad matchanalys och prestandadata:
+Plattformen kombinerar flera moderna teknologier för att optimera resursallokering och latens, uppdelat i en tydlig stack för backend och frontend.
 
+### Hybrid Nätverksarkitektur
+Systemet använder två olika kommunikationstekniker för att optimera dataflödet:
+1.  **AJAX (HTTP POST):** Används för traditionella, asynkrona laddningar (såsom matchning i spelnavet eller verifiering av utmaningar). Detta gör att webbplatsen kan skicka och hämta data i bakgrunden utan att sidan behöver laddas om.
+2.  **WebSockets (Socket.IO):** När matchen väl startar växlar systemet över till full-duplex-kommunikation. Denna persistenta anslutning strömmar spelarnas koordinater, inputs och klockans sekunder 10 gånger i sekunden med minimal fördröjning. Servern bearbetar dessa realtidsdata, uppdaterar det centrala speltillståndet, och sparar slutligen matchresultatet till databasen via ett trådisolerat exekveringsmönster.
+
+### Backend & Databas
+* **Språk & Ramverk:** Python och Flask, strukturerat med ett Blueprint-system för modulär filhantering.
+* **Databas:** Relaterad SQLite-databas för snabb och lokal datalagring. Känsliga data, såsom användarlösenord, skyddas med enkelriktad kryptering (`flask-bcrypt`).
+* **Säkerhet:** Server-side sessionshantering (`flask-session`) för säker användarautentisering.
+
+### Frontend & Interaktion
+* **Rendering:** HTML5 Canvas används för att dynamiskt rita upp spelet med hög prestanda.
+* **Stil & Layout:** CSS3 och Bootstrap ger en responsiv layout som anpassar sig för olika skärmstorlekar.
+* **Logik:** JavaScript hanterar klientens WebSocket-anslutningar, fångar tangentbordsinmatning och uppdaterar DOM-element i realtid.
+
+---
+
+## 📊 Databasstruktur
+
+Kärnan i plattformens datalagring utgörs av tre huvudtabeller i SQLite som hanterar användare, meddelanden och matchhistorik.
+
+### `users` (Användarkonton)
+Hanterar all profilinformation och autentiseringsdata.
 | Kolumnnamn | Datatyp | Beskrivning |
 | :--- | :--- | :--- |
 | `id` | INTEGER | Primärnyckel (Auto-increment) |
-| `player1_id` | INTEGER | Främmande nyckel kopplad till användar-id för Spelare 1 (Blå) |
-| `player2_id` | INTEGER | Främmande nyckel kopplad till användar-id för Spelare 2 (Gul) |
-| `winner_id` | INTEGER / NULL | Id för vinnaren. Innehåller `NULL` vid oavgjort (head-on krock på samma tick) |
-| `date` | TEXT | Datum och tidstämpel för matchens avslut |
+| `username` | TEXT | Användarens unika visningsnamn |
+| `password` | TEXT | Hashat och krypterat lösenord |
+| `description` | TEXT | Användarens personliga profilbeskrivning |
+| `profile_picture` | TEXT | Filnamn på den uppladdade bilden (lagras i `/uploads`) |
+| `date_created` | TEXT | Datum och tid då kontot skapades |
+
+### `messages` (Realtidschatt)
+Lagrar all kommunikation och hanterar notis-systemet.
+| Kolumnnamn | Datatyp | Beskrivning |
+| :--- | :--- | :--- |
+| `id` | INTEGER | Primärnyckel |
+| `sender_id` | INTEGER | Främmande nyckel (Användar-id för avsändaren) |
+| `receiver_id` | INTEGER | Främmande nyckel (Användar-id för mottagaren) |
+| `content` | TEXT | Själva meddelandetexten |
+| `status` | INTEGER | Indikerar om meddelandet är läst (1) eller oläst (0) |
+| `date` | TEXT | Tidsstämpel för när meddelandet skickades |
+
+### `games_history` (Matchstatistik)
+Sparar detaljerad data för avslutade matcher för att generera statistik och diagram.
+| Kolumnnamn | Datatyp | Beskrivning |
+| :--- | :--- | :--- |
+| `id` | INTEGER | Primärnyckel |
+| `player1_id` | INTEGER | Främmande nyckel (Spelare 1 / Blå) |
+| `player2_id` | INTEGER | Främmande nyckel (Spelare 2 / Gul) |
+| `winner_id` | INTEGER | Id för vinnaren (`NULL` vid oavgjort/head-on krock) |
+| `score_player1` | INTEGER | Slutpoäng (antal frukter) för Spelare 1 |
+| `score_player2` | INTEGER | Slutpoäng (antal frukter) för Spelare 2 |
 | `duration` | INTEGER | Matchens totala längd mätt i sekunder |
-| `score_player1` | INTEGER | Slutgiltig poäng (antal tagna frukter) för Spelare 1 |
-| `score_player2` | INTEGER | Slutgiltig poäng (antal tagna frukter) för Spelare 2 |
+| `date` | TEXT | Tidsstämpel för när matchen avslutades |
 
 ---
 
 ## 🛠 Installationsguide & Körning
 
-### Systemkrav
-Projektet kräver att **Python 3.12** (eller senare) samt pakethanteraren `pip` finns installerat på din lokala maskin.
+För att köra projektet lokalt på din maskin behöver du Python installerat.
 
 ### 1. Installera Beroenden
-Installera de nödvändiga Flask- och nätverksbiblioteken genom att köra följande kommando i din terminal:
+Installera de nödvändiga paketen via terminalen:
 
-```bash
+```
 pip install flask flask-session flask-bcrypt flask-socketio
+```
 2. Starta Servern
-Navigera till projektets rotkatalog och starta applikationen genom att köra startfilen:
-
-Bash
+Navigera till projektets rotkatalog och exekvera startfilen:
+```
 python run.py
+```
 3. Anslut till Applikationen
-När servern indikerar att den lyssnar på inkommande anrop, öppna en valfri modern webbläsare (t.ex. Chrome, Firefox eller Edge) och navigera till:
-
-Plaintext
+Öppna en valfri modern webbläsare och navigera till:
 http://localhost:5000/
-Obs: För att testa multiplayer-funktionaliteten lokalt kan du öppna ett extra inkognitofönster och logga in på ett separat sekundärt testkonto.
+-> Tips: För att testa multiplayer-funktionaliteten på en och samma dator kan du öppna ett extra inkognitofönster och logga in på ett separat testkonto.
 
 👥 Utvecklare
-Adam Carlström – Nacka Gymnasium (TDI20b)
+* Adam Carlström – Nacka Gymnasium (TDI20b)
+* Martin Nylund – Nacka Gymnasium (TDI20b)
 
-Martin Nylund – Nacka Gymnasium (TDI20b)
+
