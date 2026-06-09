@@ -1,2 +1,19 @@
-__pycache__/*
+
 *.sqbpro
+# Virtual environments
+venv/
+.venv/
+Scripts/
+Lib/
+Include/
+
+# Flask Session data
+flask_session/
+
+# Cache files
+__pycache__/
+*.pyc
+
+# Database files (Optional, but highly recommended so you don't overwrite live data)
+# *.db
+# *.sqlite
