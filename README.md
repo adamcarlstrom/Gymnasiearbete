@@ -1,28 +1,15 @@
-# Project Summary
+# Multi-Snake Platform – Gymnasiearbete
 
-This project is a web-based multiplayer Snake game, built with a Python backend and an HTML/CSS/JavaScript frontend, powered by an SQLite database. The project allows users to create accounts, customize profiles, make friends, communicate with each other, and challenge friends to a competitive multiplayer game of Snake. The game follows classic Snake rules, with the goal being for the player with the longest-surviving snake to win.
+Ett modernt, nätverksbaserat spel- och community-plattform byggt som ett examensarbete på Nacka Gymnasium (TDI20b). Systemet flyttar all speltillståndsberäkning till en centraliserad, auktoritär backend för att uppnå synkroniserat realtids-multiplayer och garantera en fuskfri spelupplevelse.
 
-The server is created using Python's Flask framework, which hosts the website. The application makes use of various libraries, including flask-session for session management, flask-bcrypt for user authentication, and flask-socketio to handle real-time multiplayer features. The frontend is designed with HTML, CSS, and JavaScript to provide a user-friendly interface, while SQLite manages the user data and interactions.
+## 🚀 Projektöversikt
 
-## Gymnasiearbete - Snake.com
-Requirements
-To run the project, you will need to install the following dependencies:
+Plattformen erbjuder en fullständig social spelmiljö inspirerad av moderna communities som Chess.com. Användare kan skapa konton, anpassa sina profiler med unika uppladdade bilder, söka efter medspelare och kommunicera via en realtidschatt. 
 
-- flask
-- flask-session
-- flask-bcrypt
-- flask-socketio
+Kärnan i projektet är en konkurrenskraftig multiplayer-variant av det klassiska spelet **Snake**, där två spelare möts på samma bräde under devisen: *den som överlever längst vinner*.
 
-These can be installed using pip:
-pip install flask flask-session flask-bcrypt flask-socketio
+---
 
-To run the server, execute the run.py file.
+## 🛠 Teknisk Arkitektur & Dataflöde
 
-Afterward, open a web browser and navigate to the web application at:
-http://localhost:5000/
-
-### Created by
-
-Adam Carlström
-
-Martin Nylund
+Plattformen är uppbyggd kring en **hybrid nätverksarkitektur** uppdelad i tre lager: Frontend, Backend (Server) och Databas. Den kombinerar traditionella HTTP-anrop med full-duplex WebSocket-strömmar för att optimera resursallokering och latens.
