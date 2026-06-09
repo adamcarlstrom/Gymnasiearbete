@@ -22,60 +22,54 @@ Hem
 
 {% block content1 %}
 <div class="box-padding">
-    <h1>Vad det är för <div class="text-theme">gymnasieprojekt</div>
-    </h1>
-    <div class="row">
-        <div class="col-sm-12 col-md-6 my-5">
-            A very fine text indeed that is not going to be here when the projekt is finished. That is if i don't
-            forget
-            to remove this paragraph of text. <br> <br>
-            A very fine text indeed that is not going to be here when the projekt is finished. That is if i don't
-            forget
-            to remove this paragraph of text. Syns detta på engång.
-            A very fine text indeed that is not going to be here when the projekt is finished. That is if i don't
-            forget
-            to remove this paragraph of text. <br> <br>
-            A very fine text indeed that is not going to be here when the projekt is finished. That is if i don't
-            forget
-            to remove this paragraph of text. Syns detta på engång.
-            A very fine text indeed that is not going to be here when the projekt is finished. That is if i don't
-            forget
-            to remove this paragraph of text. <br> <br>
-            A very fine text indeed that is not going to be here when the projekt is finished. That is if i don't
-            forget
-            to remove this paragraph of text. Syns detta på engång.
-
-            heheheheh
+    <h1>Vad är detta för <div class="text-theme">gymnasieprojekt?</div></h1>
+    <div class="row align-items-center">
+        <div class="col-sm-12 col-md-6 my-5" style="font-size: 1.15rem; line-height: 1.8;">
+            Välkommen till en modern, nätverksbaserad spelplattform inspirerad av ledande community-sajter. Det huvudsakliga målet med projektet har varit att flytta all tung spel- och synkroniseringslogik till en säker backend för att garantera en rättvis och fusk-fri upplevelse.
+            <br><br>
+            <strong>Här är vad du kan göra på plattformen:</strong>
+            <ul class="mt-3">
+                <li><i class="bi bi-controller text-theme me-2"></i> <strong>Multiplayer-Snake:</strong> Utmana en motståndare i realtid. Spelet körs på en centraliserad server, den som överlever längst vinner matchen.</li>
+                <li><i class="bi bi-chat-dots text-theme me-2"></i> <strong>Realtidschatt:</strong> Kommunicera med andra spelare via ett blixtsnabbt WebSocket-system. Spelnavet håller dig uppdaterad med notifieringar direkt på meddelande-ikonen när du får nya utmaningar eller chattmeddelanden.</li>
+                <li><i class="bi bi-person-badge text-theme me-2"></i> <strong>Användarsök & Profiler:</strong> Sök efter andra registrerade spelare, granska deras matchhistorik och vinststatistik visualiserad med diagram.</li>
+                <li><i class="bi bi-sliders text-theme me-2"></i> <strong>Kontroll över din data:</strong> Hantera din egen profil. Du kan anpassa din information, uppdatera lösenordet eller permanent radera ditt konto.</li>
+                <li><i class="bi bi-hdd-network text-theme me-2"></i> <strong>Hybrid nätverksarkitektur:</strong> Plattformen kombinerar två olika kommunikationstekniker för att optimera dataflödet mellan frontend, backend och databasen. För traditionella, asynkrona laddningar, såsom matchning i spelnavet eller verifiering av utmaningar så används <strong>AJAX (HTTP POST-anrop)</strong>. Detta gör att webbplatsen kan skicka och hämta data i bakgrunden utan att hela sidan behöver laddas om. När matchen väl startar växlar systemet över till full-duplex-kommunikation via <strong>WebSockets (Socket.IO)</strong>. Denna persistenta anslutning strömmar spelarnas koordinater, inputs och klockans sekunder 10 gånger i sekunden med minimal fördröjning (latens). Servern bearbetar dessa realtidsdata, uppdaterar den centrala speltillståndet, och sparar slutligen matchresultatet till <strong>SQLite-databasen</strong> med hjälp av ett säkert tråd-isolerat exekveringsmönster när spelet avslutas.</li>
+            </ul>
         </div>
-        <div class="col-sm-12 col-md-6" style="transform: translateY(-10%);">
-            <img src="../static/images/designer.png" alt="Snake bild" class="image center-horizontal">
+        <div class="col-sm-12 col-md-6">
+            <img src="../static/images/designer.png" alt="Snake bild" class="image center-horizontal" style="max-width: 90%; height: auto;">
         </div>
     </div>
 </div>
 {% endblock %}
+
 {% block content2 %}
-<div class="box-padding">
-    <h1>
-        <div class="text-theme">Skaparna</div>
-    </h1>
-    <div class="my-5 d-flex flex-row">
-        <div class="card mx-5 my-5" style="width: 18rem;">
-            <img class="card-img-top" src="../static/images/snake_logo.png" alt="Card image cap">
-            <div class="card-body">
-                <h5 class="card-title">Adam Carlström</h5>
-                <p class="card-text">Nacka gymnasium</p>
-                <p class="card-text">TDI20b</p>
+<div class="box-padding" style="background-color: #F8F9FA;">
+    <h1 class="text-center mb-5">Skaparna bakom <span class="text-theme">Plattformen</span></h1>
+    <div class="d-flex flex-row justify-content-center flex-wrap gap-5 pb-5">
+        
+        <div class="card shadow-sm border-0" style="width: 18rem; border-radius: 15px; overflow: hidden;">
+            <div class="p-4 bg-theme text-center">
+                <img class="rounded-circle bg-white p-2" src="../static/images/snake_logo.png" alt="Adam Carlström" style="width: 100px; height: 100px; object-fit: contain;">
+            </div>
+            <div class="card-body text-center bg-white">
+                <h5 class="card-title fw-bold mb-1">Adam Carlström</h5>
+                <p class="text-muted small mb-3">Nacka Gymnasium | TDI20b</p>
+                <p class="card-text text-secondary" style="font-size: 0.95rem;">Fullstack-utvecklare med fokus på nätverksprogrammering, serverarkitektur och realtidssynkronisering.</p>
             </div>
         </div>
-        <div class="card my-5" style="width: 18rem;">
-            <img class="card-img-top" src="../static/images/snake_logo.png" alt="Card image cap">
-            <div class="card-body">
-                <h5 class="card-title">Martin Nylund</h5>
-                <p class="card-text">Nacka gymnasium</p>
-                <p class="card-text">TDI20b</p>
+
+        <div class="card shadow-sm border-0" style="width: 18rem; border-radius: 15px; overflow: hidden;">
+            <div class="p-4 bg-theme text-center">
+                <img class="rounded-circle bg-white p-2" src="../static/images/snake_logo.png" alt="Martin Nylund" style="width: 100px; height: 100px; object-fit: contain;">
+            </div>
+            <div class="card-body text-center bg-white">
+                <h5 class="card-title fw-bold mb-1">Martin Nylund</h5>
+                <p class="text-muted small mb-3">Nacka Gymnasium | TDI20b</p>
+                <p class="card-text text-secondary" style="font-size: 0.95rem;">Fullstack-utvecklare med fokus på databasstruktur, användargränssnitt samt responsiv webbdesign.</p>
             </div>
         </div>
+
     </div>
 </div>
-
 {% endblock %}
