@@ -120,8 +120,19 @@ class Game {
 
         // 6. Update the Scoreboard HTML
         // Subtracting 3 assumes the starting length of the snake is 3
-        if (state.p1) $('#lengthUser').html(state.p1.body.length - 3); 
-        if (state.p2) $('#lengthOponent').html(state.p2.body.length - 3);
+        if (state.p1 && state.p2) {
+            let my_id = Number(document.getElementById("my_id").value);
+
+            if (state.p1.id === my_id) {
+                // I am Player 1. My score is p1, opponent is p2.
+                $('#lengthUser').html(state.p1.body.length - 3);
+                $('#lengthOponent').html(state.p2.body.length - 3);
+            } else {
+                // I am Player 2. My score is p2, opponent is p1.
+                $('#lengthUser').html(state.p2.body.length - 3);
+                $('#lengthOponent').html(state.p1.body.length - 3);
+            }
+        }
         
 
         if (state.time !== undefined) {

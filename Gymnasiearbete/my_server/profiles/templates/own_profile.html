@@ -15,6 +15,11 @@ Profilinställningar
 {% block content1 %}
 <div class="box-padding">
   <div class="row">
+      <div class="text-center ">
+    <form action="{{url_for('profiles_bp.view_profile', id=user_info[0])}}" method="get">
+    <input type="submit" value="Se egen Profil" class="button button-large" id="profile_link">
+  </form>
+  </div>
     <div class="col-sm-12 col-md-6 my-5">
       <img src="../static/uploads/{{user_info[4]}}" alt="Profile picture" class="center-horizontal profile-image"
         style="width: 25rem; height: 25rem;">
@@ -45,7 +50,10 @@ Profilinställningar
       </form>
     </div>
   </div>
+
 </div>
+
+
 {% endblock %}
 
 {%block content2%}
@@ -56,9 +64,9 @@ Profilinställningar
   <div class="row">
     <div class="col-sm-12 col-md-6 my-5">
       <form action="{{url_for('profiles_bp.change_password')}}" method="post">
-        <input name="password" type="password" class="contact mt-3" id="password" placeholder="Ditt lösenord...">
+        <input name="password" type="password" class="contact mt-3" id="password" placeholder="Ditt nya lösenord...">
         <input name="password_repeat" type="password" class="contact mt-3" id="password_repeat"
-          placeholder="Upprepa lösenord...">
+          placeholder="Upprepa nya lösenordet...">
         <input type="submit" value="Ändra lösenord" class="button">
       </form>
     </div>

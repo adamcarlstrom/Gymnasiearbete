@@ -195,18 +195,26 @@ def view_profile(id=None):
     session['page'] = 'view_profile'
 
     win = 0
+    draws = 0
     nr_of_games = 0
 
     for game in games:
-        if game[3] == int(id):
+        if not game[3]:
+            draws += 1
+        elif game[3] == int(id):
             win += 1
         nr_of_games += 1
 
     if nr_of_games != 0:
         win_rate = int((win / nr_of_games + 0.0005) * 1000)
         win_rate = win_rate / 10
+        draw_rate = int((draws / nr_of_games + 0.0005) * 1000)
+        draw_rate = draw_rate / 10
     else:
         win_rate = 0
+        draw_rate = 0
+        
+    loss_rate = 100 - win_rate - draw_rate
 
     print(usernames)
-    return render_template('view_profile.html', active_page='view_profile', viewed_user=viewed_user, games=games, username=usernames, win_rate=win_rate)
+    return render_template('view_profile.html', active_page='view_profile', viewed_user=viewed_user, games=games, username=usernames, win_rate=win_rate, draw_rate=draw_rate, loss_rate=loss_rate)
