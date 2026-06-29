@@ -19,7 +19,7 @@ On the platform, users can interact, compete, and manage their data through mult
 ![new_account](./assets/newAccount.png)
 ![Login](./assets/LogIn.png)
 ![profile_view](./assets/profile_view.png)
-![win_rate](./assets/win-rate.png)
+![win_rate](./assets/win_rate.png)
 ![game_begin](./assets/game_begin.png)
 ![game](./assets/game.png)
 ![messages](./assets/messages.png)
