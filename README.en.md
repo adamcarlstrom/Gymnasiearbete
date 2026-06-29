@@ -15,6 +15,15 @@ On the platform, users can interact, compete, and manage their data through mult
 * **User Search & Profiles:** Search for other registered players in the database, review their unique profiles, and view their match history and win statistics, which are visualized with responsive charts.
 * **Control over your data:** Fully manage your own profile. You can customize your personal information, change your profile picture, update your password, or permanently delete your account.
 
+![Dashboard View](./assets/home_page.png)
+![new_account](./assets/newAccount.png)
+![Login](./assets/LogIn.png)
+![profile_view](./assets/profile_view.png)
+![win_rate](./assets/win-rate.png)
+![game_begin](./assets/game_begin.png)
+![game](./assets/game.png)
+![messages](./assets/messages.png)
+
 ---
 
 ## 🛠 Technical Architecture & Network
