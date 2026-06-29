@@ -1,5 +1,5 @@
 # Multi-Snake Platform – Gymnasiearbete
-
+[🇬🇧 Read this in English](README.en.md)
 Välkommen till en modern, nätverksbaserad spelplattform inspirerad av ledande community-sajter. Detta projekt är ett gymnasiearbete utvecklat på Nacka Gymnasium (TDI20b). Det huvudsakliga målet med projektet har varit att bygga en robust och server-auktoritär plattform för realtidsinteraktion, där all tung spel- och synkroniseringslogik flyttats till en säker backend för att garantera en rättvis och fuskfri upplevelse.
 
 ---
