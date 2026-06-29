@@ -14,6 +14,15 @@ På plattformen kan användare interagera, tävla och hantera sin data genom ett
 * **Användarsök & Profiler:** Sök efter andra registrerade spelare i databasen, granska deras unika profiler, och ta del av deras matchhistorik och vinststatistik som visualiseras med responsiva diagram.
 * **Kontroll över din data:** Hantera din egen profil fullt ut. Du kan anpassa din personliga information, byta profilbild, uppdatera ditt lösenord eller permanent radera ditt konto.
 
+![Dashboard View](./assets/home_page.png)
+![new_account](./assets/newAccount.png)
+![Login](./assets/LogIn.png)
+![profile_view](./assets/profile_view.png)
+![win_rate](./assets/win-rate.png)
+![game_begin](./assets/game_begin.png)
+![game](./assets/game.png)
+![messages](./assets/messages.png)
+
 ---
 
 ## 🛠 Teknisk Arkitektur & Nätverk
